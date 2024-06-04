@@ -1,9 +1,26 @@
 class Article:
+    all = []
+
     def __init__(self, author, magazine, title):
+        if not isinstance(title, str):
+            raise TypeError("Title must be a string")
+        if len(title) < 5 or len(title) > 50:
+            raise ValueError("Title must be between 5 and 50 characters inclusive")
+        self._title = title
         self.author = author
         self.magazine = magazine
-        self.title = title
-        
+        Article.all.append(self)
+
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, value):
+        raise AttributeError("Title is immutable and cannot be modified")
+
+
+
 class Author:
     def __init__(self, name):
         self.name = name
